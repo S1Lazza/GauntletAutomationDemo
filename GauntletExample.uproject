@@ -23,6 +23,10 @@
 				"Android",
 				"HoloLens"
 			]
+		},
+		{
+			"Name": "AndroidFileServer",
+			"Enabled": false
 		}
 	],
 	"TargetPlatforms": [
