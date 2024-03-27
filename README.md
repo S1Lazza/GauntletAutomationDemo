@@ -2,6 +2,8 @@
 
 This project showcases the **Gauntlet Automation Framework** integrated into Unreal Engine, demonstrating its functionality across multiple platforms and illustrating how to extract performance data from target applications.
 
+</br>
+
 ## Additional Notes
 
 - The *main* branch features a modified setup of the **VR Template Project**, a baseline for the other branches, configured to support building for **Android** and **Meta** Devices. The engine version the project is based upon is **5.2**.
