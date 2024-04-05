@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "5.2",
+	"EngineAssociation": "{4B3C24CA-401E-B37D-A411-57A5D614994F}",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -27,6 +27,10 @@
 		{
 			"Name": "AndroidFileServer",
 			"Enabled": false
+		},
+		{
+			"Name": "Gauntlet",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [
