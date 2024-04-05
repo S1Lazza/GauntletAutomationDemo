@@ -1,6 +1,7 @@
 # Gauntlet Demo
 
-This project showcases the **Gauntlet Automation Framework** integrated into Unreal Engine, demonstrating its functionality across multiple platforms and illustrating how to extract performance data from target applications.
+This project showcases the [Gauntlet Automation Framework](https://dev.epicgames.com/documentation/en-us/unreal-engine/gauntlet-automation-framework-overview-in-unreal-engine?application_version=5.2) integrated into Unreal Engine, demonstrating its functionality across multiple platforms and illustrating how to extract performance data from target applications. <br>
+The goal of the project was to gain insight into running and utilizing Gauntlet on Meta Quest devices, which is why certain listed steps and file modifications are tailored towards these platforms.
 
 </br>
 
