@@ -3,13 +3,13 @@
 using UnrealBuildTool;
 using System.Collections.Generic;
 
-public class GauntletExampleTarget : TargetRules
+public class GauntletDemoTarget : TargetRules
 {
-	public GauntletExampleTarget(TargetInfo Target) : base(Target)
+	public GauntletDemoTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
 
-		ExtraModuleNames.AddRange( new string[] { "GauntletExample" } );
+		ExtraModuleNames.AddRange( new string[] { "GauntletDemo" } );
 	}
 }

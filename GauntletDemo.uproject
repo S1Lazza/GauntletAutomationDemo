@@ -1,11 +1,11 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{8C9F360A-415A-F255-9733-3DA5BB208B80}",
+	"EngineAssociation": "5.2",
 	"Category": "",
 	"Description": "",
 	"Modules": [
 		{
-			"Name": "GauntletExample",
+			"Name": "GauntletDemo",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
@@ -40,7 +40,6 @@
 		"WindowsNoEditor",
 		"Switch",
 		"XboxOne",
-		"XSX",
-		"HoloLens"
+		"XSX"
 	]
 }

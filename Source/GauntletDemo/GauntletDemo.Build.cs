@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class GauntletExample : ModuleRules
+public class GauntletDemo : ModuleRules
 {
-	public GauntletExample(ReadOnlyTargetRules Target) : base(Target)
+	public GauntletDemo(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
