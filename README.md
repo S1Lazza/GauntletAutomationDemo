@@ -41,9 +41,9 @@ Then, double-click on the project to open the **.csproj** file and include the f
     <DebugType>full</DebugType>
   </PropertyGroup>
 ```
-This code is required to prevent Visual Studio from encountering configuration errors and defaulting the automation project configuration to Debug instead of the desired Develop.
+This code is required to prevent Visual Studio from encountering configuration errors and defaulting the automation project configuration to Debug instead of the desired **Develop**.
 
-Once this is done, close Visual Studio, navigate to your engine's root directory, and execute the  *GenerateProjectFiles.bat*, then, reopen the **UE5.sln**. <br>
+Once this is done, close Visual Studio, navigate to your engine's root directory, and execute the  **GenerateProjectFiles.bat**, then, reopen the **UE5.sln**. <br>
 Your project should now be visible under *UE5/Programs/Automation* in the Solution Explorer.
 
 Next, right-click on your project and navigate to *Add->Reference*. <br> 
@@ -64,6 +64,7 @@ For further guidance, refer to the examples provided located at *Gauntlet.Automa
 
 ## Unreal Project Setup
 
+Before starting, make sure to associate the project with the source engineby right-clicking on the .uproject file and select **Switch Unreal Engine Version**. <br>
 To integrate Gauntlet in your game project:
 
 - Edit your game's **.uproject** file and add the following under Plugins:
@@ -83,23 +84,57 @@ PrivateDependencyModuleNames.AddRange(new string[] { "Gauntlet" });
 
 - Create a new C++ class inheriting from **GauntletTestController**. <br>
 You can place it anywhere within your game's Source folder, just ensure that its name matches the one specified into the **.cs** file for the **GauntletController** variable. 
+In the example project, the choosen name is **CustomGauntletController**.
 
 With these changes, Gauntlet is now ready to run within your game project.
 
 </br>
 
-## Additional Engine Changes
+## Engine Changes
 
 If you intend to run Gauntlet on Windows builds without further modifications, everything is set up and you can skip the explanation below. <br>
-Utilize the **.bat** script located in the **Scripts** folder to make and execute Gauntlet on target builds. <br>
-Just be sure to adjust the paths according to your project's location and name and be sure the builds made are in **Development** configuration. <br>
-Each time a test is executed, the performance data will be stored in a folder named **PerfTests** within the project directory.
+Utilize the **RunGauntletWindowsBuild.bat** file located in the **Scripts** folder to execute Gauntlet on target builds. <br>
+Just be sure to adjust the paths according to your engine's and project's location and name and be sure the **test** command matches the name of the class specified in the automation project. <br>
+Each time a test is executed, the performance data will be stored in the folder specified in the **uploaddir** command, open the **.xml** file to visualize them.
 
+### Generate Performance Graphs for specific target FPS with custom data
 
-However by default, the PerfTest tool does only generate graphs for 30 and 60 fps as target.
-You'll need to edit the 2 files to add new framerate if needed. It is possible to play around with them to add additional data and compress more data together.
-Please refers to the files.
+The **Performance Report Tool** possess significant capabilities, but it also comes with limitations:
+- By default the tool generates graphs only against 30 and 60 fps targets. This can be limiting, especially when dealing with VR development.
+- Graphs may be challenging to interpret due to crowded data curves.
+- The tool generates an Excel file inside the output directory, within a CSV folder. Upon inspection, you'll find that this file contains more information than what is reported by the graphs with data that are not displayed.
 
-However, to allow to recognize your specific target framerate you'll have to do additional changes, please refer to the file to check how I managed to have the tool targeting quest.
+Luckily for us, it is possible to modify these behaviors. <br>
 
-Finally, specifically for Quest 2 there's another trick to 
+To customize the information and appearance of the graphs, navigate to *Engine\Binaries\DotNET\CsvTools* and examine the **ReportGraphs.xml** and **ReportTypes.xml** files. <br>
+Compare them with the versions found in the *EngineSourceChanges\CSVTools* folder. <br>
+The **ReportGraphs.xml** file controls the types of graphs available, while the **ReportTypes.xml** file determines the reports generated. Adjust them as needed to suit your requirements.
+
+Editing these files will enable the **Performance Report Tool** to include additional data, but it won't instruct it when to do so. <br>
+To achieve that, you'll need to modify an additional engine file: *Engine\Source\Runtime\Core\Private\ProfilingDebugging\CsvProfiler.cpp*. <br>
+Refer again to the file contained in *EngineSourceChanges\CSVTools* for guidance, line 2909.
+
+```
+// GauntletDemo: Check if the build is running on Meta Quest Devices, by comparing against some platform attributes
+// If that's the case, hardcode the target framerate
+
+FString TargetPlatformCPU = "Snapdragon";
+FString TargetPlatformName = "Quest";
+FString TargetPlatformOS = "Android";
+
+FString PlatformSpec = FPlatformMisc::GetDeviceMakeAndModel();
+FString PlatformOS = FPlatformMisc::GetUBTPlatform();
+
+if (PlatformOS.Contains(TargetPlatformOS, ESearchCase::IgnoreCase) &&
+   (PlatformSpec.Contains(TargetPlatformName, ESearchCase::IgnoreCase) ||
+   PlatformSpec.Contains(TargetPlatformCPU, ESearchCase::IgnoreCase)))
+	{
+	    // Minimum target FPS required by Meta Quest applications
+		TargetFPS = 72;
+	}
+	else
+	{
+	    // Original code
+	}
+```
+The code above is a far from perfect example, but it indicates where to look and what to do to allow the tool to target the custom graphs.
