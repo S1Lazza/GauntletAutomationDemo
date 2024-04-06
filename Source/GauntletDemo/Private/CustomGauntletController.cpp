@@ -9,7 +9,7 @@
 
 void UCustomGauntletController::OnPostMapChange(UWorld* World)
 {
-    UE_LOG(LogGauntlet, Display, TEXT("YourGameGauntletController started"));
+    UE_LOG(LogGauntlet, Display, TEXT("GauntletController started"));
 
     FTimerHandle dummy;
     GetWorld()->GetTimerManager().SetTimer(dummy, this, &UCustomGauntletController::StartTesting, SpinUpTime, false);
@@ -60,7 +60,7 @@ void UCustomGauntletController::OnTick(float DeltaTime)
 
 void UCustomGauntletController::StopTesting()
 {
-    UE_LOG(LogGauntlet, Display, TEXT("YourGameGauntletController stopped"));
+    UE_LOG(LogGauntlet, Display, TEXT("GauntletController stopped"));
     EndTest(0);
 }
 
