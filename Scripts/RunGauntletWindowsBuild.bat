@@ -1,0 +1,2 @@
+cd /d "PathToEngineDirectory\Engine\Build\BatchFiles"
+RunUAT RunUnreal -project=PathToProjectDirectory\ProjectName.uproject -targetPlatform=Win64 -configuration=Development -test=PerformanceGraphData -build=PathToBuildDirectory -uploaddir=PathToGraphOutputDirectory
