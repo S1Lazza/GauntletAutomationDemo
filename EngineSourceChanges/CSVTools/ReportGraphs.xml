@@ -38,12 +38,12 @@
 			<statString>RHI/Drawcalls</statString>
 		</graph>
 
-		<!-- Custom graph to combine data relative to Drawcall, Polycount and Actor Number-->
+		<!-- GauntletDemo: Custom graph to combine data relative to Drawcall, Polycount and Actor Number-->
 		<graph title="Drawcalls + Polycount + Actors" maxy="250" thickness="4" smooth="0" mainStat="RHI/Drawcalls">
 			<statString>RHI/Drawcalls, RHI/PrimitivesDrawn, ActorCount/*</statString>
 		</graph>
 
-		<!-- Custom graph to display texture data-->
+		<!-- GauntletDemo: Custom graph to display texture data-->
 		<graph title="Texture Rendering Count + Streaming Pool" maxy="500" thickness="4" smooth="0" mainStat="TextureStreaming/StreamingPool">
 			<statString>RDGCount/Textures, TextureStreaming/StreamingPool </statString>
 		</graph>
@@ -110,7 +110,7 @@
 		</graph>
 
 
-		<!-- Custom graph for animation data, same info as Animation Budget one, but no smooth -->
+		<!-- GauntletDemo: Custom graph for animation data, same info as Animation Budget one, but no smooth -->
 		<graph title="Animation" showAverages="0" hideStatPrefix="Exclusive/GameThread/" mainStat="Exclusive/GameThread/Animation" thickness="4" smooth="0" maxy="5" filterOutZeros="0">
 			<statString>Exclusive/GameThread/Animation,AnimationBudget/*</statString>
 		</graph>
@@ -135,7 +135,7 @@
 			<statString>AndroidCPU/CPUFreqMHzGroup0,AndroidCPU/CPUFreqMHzGroup1,AndroidCPU/CPUFreqMHzGroup2,AndroidCPU/CPUFreqMHzGroup3</statString>
 		</graph>
 
-		<!-- Custom graph to combine data relative to Android CPU and Temperature -->
+		<!-- GauntletDemo: Custom graph to combine data relative to Android CPU and Temperature -->
 		<graph title="Android Stats" showAverages="1" hideStatPrefix="AndroidCPU/" maxy="0" smooth="0">
 			<statString>AndroidCPU/CPUFreqMHzGroup0,AndroidCPU/CPUFreqMHzGroup1,AndroidCPU/CPUFreqMHzGroup2,AndroidCPU/CPUFreqMHzGroup3,AndroidCPU/CPUTemp,AndroidCPU/ThermalStatus</statString>
 		</graph>

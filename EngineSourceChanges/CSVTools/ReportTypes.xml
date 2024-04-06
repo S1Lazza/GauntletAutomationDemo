@@ -110,7 +110,7 @@
 			<graph title="GPU bandwidth / frame" budget="0" />
 		</reporttype>
 
-		<!-- 72fps report, custom report made to check applications running on Meta Quest -->	
+		<!-- GauntletDemo: 72fps report, custom report made to target applications running on VR, specifically Meta Quest devices -->	
 		<reporttype name="Default72fps" title="Performance Report - Target Framerate 72FPS" vsync="1">
 			<autodetection requiredstats="frametime">
 				<requiredmetadata key="targetframerate" allowedValues="72" stopIfKeyFound="1" ignoreIfKeyNotFound="1"/>

@@ -2906,7 +2906,7 @@ void FCsvProfiler::BeginFrame()
 					int TargetFPS = FPlatformMisc::GetMaxRefreshRate();
 
 					
-					// Check if the build is running on Quest, by checking some platform attributes
+					// GauntletDemo: Check if the build is running on Quest, by comparing against some platform attributes
 					// If that's the case, hardcode the target framerate
 					FString TargetPlatformCPU = "Snapdragon";
 					FString TargetPlatformName = "Quest";
