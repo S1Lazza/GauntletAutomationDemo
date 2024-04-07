@@ -1,6 +1,12 @@
 
 # Gauntlet Demo - Unreal Engine 5.2
 
+During the research process, the most comprehensive articles found on the topic focused on the use of Gauntlet in Unreal Engine 4. <br>
+These resources lacked insights into specific platform issues and did not cover the differences in setup between Unreal Engine 4 and 5 (Unreal Engine 5 was not a thing when a big part of them was published). <br>
+That's why the detailed setup guide provided below exists.
+
+<br>
+
 ## Software Requirements
 - Visual Studio 2019 or 2022 and [following components](https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine?application_version=5.0) - 2022 is recommended
 - [Android SDK and Java](https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-unreal-engine-projects-for-android-development?application_version=5.0) 
