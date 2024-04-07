@@ -22,6 +22,8 @@ To gather the performance data and generate graphs, we will use the built-in **P
 You can verify their presence by navigating to *Engine\Binaries\DotNET\CsvTools* and checking for the **PerfreportTool.exe** file. <br>
 If the binaries are not found, you need to manually rebuild the project solution located at *Engine\Source\Programs\CSVTools*.
 
+---
+
 Next, you'll need to add a new C# project to the source engine. <br>
 Refer to the [following documentation](https://dev.epicgames.com/documentation/en-us/unreal-engine/create-an-automation-project-in-unreal-engine?application_version=5.2) for instructions on how to do this. <br>
 Follow the steps outlined under the <ins>Create an Automation Project</ins> and <ins>Configure your Automation Project Adjust Build Settings</ins> sections.<br>
@@ -43,6 +45,8 @@ Then, double-click on the project to open the **.csproj** file and include the f
   </PropertyGroup>
 ```
 This code is required to prevent Visual Studio from encountering configuration errors and defaulting the automation project configuration to Debug instead of the desired **Develop**.
+
+---
 
 Once this is done, close Visual Studio, navigate to your engine's root directory, and execute the  **GenerateProjectFiles.bat**, then, reopen the **UE5.sln**. <br>
 Your project should now be visible under *UE5/Programs/Automation* in the Solution Explorer.
@@ -100,7 +104,7 @@ Just be sure to adjust the paths according to your engine's and project's locati
 
 Each time a test is executed, the performance data will be stored in the folder specified in the **uploaddir** command, open the **.xml** file to visualize them.
 
-### Generate performance graphs for specific target FPS with custom data
+### Generate graphs for specific target FPS with custom data
 
 The **Performance Report Tool** possess significant capabilities, but it also comes with limitations:
 - By default the tool generates graphs only against 30 and 60 fps targets. This can be limiting, especially when dealing with VR development.
@@ -112,6 +116,8 @@ Luckily for us, it is possible to modify these behaviors. <br>
 To customize the information and appearance of the graphs, navigate to *Engine\Binaries\DotNET\CsvTools* and examine the **ReportGraphs.xml** and **ReportTypes.xml** files. <br>
 Compare them with the versions found in the *EngineSourceChanges\CSVTools* folder. <br>
 The **ReportGraphs.xml** file controls the types of graphs available, while the **ReportTypes.xml** file determines the reports generated. Adjust them as needed to suit your requirements.
+
+---
 
 Editing these files will enable the **Performance Report Tool** to include additional data, but it won't instruct it when to do so. <br>
 To achieve that, you'll need to modify an additional engine file: *Engine\Source\Runtime\Core\Private\ProfilingDebugging\CsvProfiler.cpp*. <br>
@@ -143,11 +149,13 @@ if (PlatformOS.Contains(TargetPlatformOS, ESearchCase::IgnoreCase) &&
 The code above is an example, far from perfect, but it shows where to look and what to do to allow the tool to target the custom graphs.
 After making the changes, be sure to build (NOT rebuild) the engine again to generate the needed binaries.
 
-### Having Gauntlet running successfully on MetaQuest Devices
+### Additional fixes for MetaQuest Devices
 
 The customized Gauntlet test is operational. <br>
 However, on Meta Quest devices, there's an issue when attempting to extend the duration of the test over a certain threshold (~10 seconds from testing), resulting in a failed test. <br>
 This has not been confirmed on other Android VR devices, but they may potentially present the same issue.
+
+---
 
 Navigate to the following directory and compare the file *Engine\Source\Programs\AutomationTool\Gauntlet\Platform\Android\Gauntlet.TargetDeviceAndroid.cs* with the version in *EngineSourceChanges\AutomationTool*, starting from line 125.
 
@@ -168,6 +176,7 @@ if (bHasExited)
 	}
 ```
 
-You are now ready to execute Gauntlet tests on Meta Quest devices, ensuring their proper functionality. <br>
+You are now ready to execute Gauntlet tests on Meta Quest devices, ensuring their proper functionality. 
+
 For added precaution, you could consider disabling certain device features during testing. <br>
 Detailed instructions on how to do so can be found in the [following article](https://developer.oculus.com/documentation/unity/ts-scriptable-testing/?intern_source=devblog&intern_content=scale-e2e-on-device-testing-with-meta-quest-scriptable-testing) or by examining the **RunGauntletMetaDevices.bat** file located in the **Scripts** folder.
