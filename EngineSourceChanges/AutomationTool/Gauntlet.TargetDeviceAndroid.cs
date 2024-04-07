@@ -122,10 +122,11 @@ namespace Gauntlet
 			// We have exited if our activity doesn't appear in the activity query or is currently running
 			bool bActivityPresent = ActivityQuery.Output.Contains(Install.AndroidPackageName);
 
-			// On Quest the activity is pushed in background and then resumed, this caused the test to exit and fail prematurely
-			// Therefore we change condition below to check if the ability is actually exited (which happens at the end of the test)
+			// GauntletDemo: On Meta Quest devices the activity is pushed in background and then resumed when the test duration exceed a certain threshold, this causes the test to exit prematurely and fail
+			// Therefore we change condition below to check if the ability is exited (which happens at the end of the test)
 
-			// Legacy variable 
+
+			// Original variable 
 			// bool bActivityInForeground = ActivityQuery.Output.Contains("mResumedActivity");
 
 			bool bActivityExited = ActivityQuery.HasExited;

@@ -8,7 +8,7 @@
 
 </br>
 
-## Additional Notes
+## Important Notes
 - The <ins>Unreal Project Setup</ins> section has been included to provide a complete explanation, but can be skipped, as it is already integrated into the project repository.
 - The folder **EngineSource** contains the added/modified engine files required for the Gauntlet setup
 - The folder **Scripts** contains multiple batch scripts to run Gauntlet on target builds and generate the performance graph data
@@ -64,7 +64,7 @@ For further guidance, refer to the examples provided located at *Gauntlet.Automa
 
 ## Unreal Project Setup
 
-Before starting, make sure to associate the project with the source engineby right-clicking on the .uproject file and select **Switch Unreal Engine Version**. <br>
+Before starting, make sure to associate the project with the source engine by right-clicking on the .uproject file and select **Switch Unreal Engine Version**. <br>
 To integrate Gauntlet in your game project:
 
 - Edit your game's **.uproject** file and add the following under Plugins:
@@ -129,7 +129,7 @@ if (PlatformOS.Contains(TargetPlatformOS, ESearchCase::IgnoreCase) &&
    (PlatformSpec.Contains(TargetPlatformName, ESearchCase::IgnoreCase) ||
    PlatformSpec.Contains(TargetPlatformCPU, ESearchCase::IgnoreCase)))
 	{
-	    // Minimum target FPS required by Meta Quest applications
+	  // Minimum target FPS required by Meta Quest applications
 		TargetFPS = 72;
 	}
 	else
@@ -137,4 +137,34 @@ if (PlatformOS.Contains(TargetPlatformOS, ESearchCase::IgnoreCase) &&
 	    // Original code
 	}
 ```
-The code above is a far from perfect example, but it indicates where to look and what to do to allow the tool to target the custom graphs.
+The code above is just an example, far from perfect, but it indicates where to look and what to do to allow the tool to target the custom graphs.
+After making the changes, be sure to build the engine again (NOT rebuild) to generate the needed binaries.
+
+### Having Gauntlet running successfully on MetaQuest Devices
+
+The customized Gauntlet test is operational. <br>
+However, on Meta Quest devices, there's an issue when attempting to extend the duration of the test over a certain threshold (~10 seconds), resulting in a failed test. <br>
+This has not been confirmed on other Android VR devices, but they may potentially present the same issue.
+
+Navigate to the following directory and compare the file *Engine\Source\Programs\AutomationTool\Gauntlet\Platform\Android\Gauntlet.TargetDeviceAndroid.cs* with the version in *EngineSourceChanges\AutomationTool*, starting from line 125.
+
+```
+// GauntletDemo: On Meta Quest devices the activity is pushed in background and then resumed when the test duration exceed a certain threshold (~10 seconds), this causes the test to exit prematurely and fail
+// Therefore we change condition below to check if the ability is exited (which happens at the end of the test)
+
+// Original variable 
+// bool bActivityInForeground = ActivityQuery.Output.Contains("mResumedActivity");
+
+bool bActivityExited = ActivityQuery.HasExited;
+
+bool bHasExited = !bActivityPresent || !bActivityExited;
+
+if (bHasExited)
+	{
+	    //Original code	
+	}
+```
+
+You are now ready to execute Gauntlet tests on Meta Quest devices, ensuring their proper functionality. <br>
+For added precaution, you could consider disabling certain device features during testing. <br>
+For detailed instructions on how to do this, refer to the [following article](https://developer.oculus.com/documentation/unity/ts-scriptable-testing/?intern_source=devblog&intern_content=scale-e2e-on-device-testing-with-meta-quest-scriptable-testing) or examine the **RunGauntletMetaDevices.bat** file located in the **Scripts** folder.
