@@ -178,5 +178,7 @@ if (bHasExited)
 
 You are now ready to execute Gauntlet tests on Meta Quest devices, ensuring their proper functionality. 
 
-For added precaution, you could consider disabling certain device features during testing. <br>
+For added precaution, you can consider disabling certain device features during testing. <br>
 Detailed instructions on how to do so can be found in the [following article](https://developer.oculus.com/documentation/unity/ts-scriptable-testing/?intern_source=devblog&intern_content=scale-e2e-on-device-testing-with-meta-quest-scriptable-testing) or by examining the **RunGauntletMetaDevices.bat** file located in the **Scripts** folder.
+
+Check the **PerformanceGraphResult.html** file to see the final result of the test!
