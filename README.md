@@ -7,6 +7,20 @@ That's why the detailed setup guide provided below exists.
 
 <br>
 
+<a name="table-of-contents"></a>
+## Table of Contents
+
+> 1. [Software Requirements](#Software_Requirements)
+> 1. [Important Notes](#Important_Notes)
+> 1. [Automation Project Setup](#Automation_Project_Setup)
+> 1. [Unreal Project Setup](#Unreal_Project_Setup) 
+> 1. [Engine Changes](#Engine_Changes)  
+>    5.1 [Generate graphs for specific target FPS with custom data](#Generate_Custom_Graphs)  
+>    5.2 [Additional fixes for MetaQuest Devices](#Meta_Quest_Devices_Fixes) 
+
+<br>
+
+<a name="Software_Requirements"></a>
 ## Software Requirements
 - Visual Studio 2019 or 2022 and [following components](https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine?application_version=5.0) - 2022 is recommended
 - [Android SDK and Java](https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-unreal-engine-projects-for-android-development?application_version=5.0) 
@@ -14,6 +28,7 @@ That's why the detailed setup guide provided below exists.
 
 </br>
 
+<a name="Important_Notes"></a>
 ## Important Notes
 - The <ins>Unreal Project Setup</ins> section has been included to provide a complete explanation, but can be skipped, as it is already integrated into the project repository.
 - The folder **EngineSource** contains the added/modified engine files required for the Gauntlet setup.
@@ -21,8 +36,8 @@ That's why the detailed setup guide provided below exists.
 
 </br>
 
+<a name="Automation_Project_Setup"></a>
 ## Automation Project Setup
-
 To gather the performance data and generate graphs, we will use the built-in **Performance Report Tool** in Unreal Engine. <br>
 [Building the engine](https://github.com/EpicGames/UnrealEngine/tree/5.2) will automatically generate the needed binaries to allow us to use it. <br> 
 You can verify their presence by navigating to *Engine\Binaries\DotNET\CsvTools* and checking for the **PerfreportTool.exe** file. <br>
@@ -71,10 +86,11 @@ Compare it with the file located at *EngineSource/AutomationProject/PerformanceG
 
 For further guidance, refer to the examples provided located at *Gauntlet.Automation/Unreal/Game/Samples* in the **Solution Explorer**, with particular attention to the **ElementalDemoTest.cs** one.
 
+**[⬆ Back to Top](#table-of-contents)**
 </br>
 
+<a name="Unreal_Project_Setup"></a>
 ## Unreal Project Setup
-
 Before starting, make sure to associate the project with the source engine by right-clicking on the .uproject file and select **Switch Unreal Engine Version**. <br>
 To integrate Gauntlet in your game project:
 
@@ -99,10 +115,11 @@ In the example project, the choosen name is **CustomGauntletController**.
 
 With these changes, Gauntlet is now ready to run within your game project.
 
+**[⬆ Back to Top](#table-of-contents)**
 </br>
 
+<a name="Engine_Changes"></a>
 ## Engine Changes
-
 If you intend to run Gauntlet on Windows builds without further modifications, everything is set up and you can skip the explanation below. <br>
 Utilize the **RunGauntletWindowsBuild.bat** file located in the **Scripts** folder to execute Gauntlet on target builds. 
 
@@ -110,8 +127,8 @@ Just be sure to adjust the paths according to your engine's and project's locati
 
 Each time a test is executed, the performance data will be stored in the folder specified in the **uploaddir** command, open the **.xml** file to visualize them.
 
+<a name="Generate_Custom_Graphs"></a>
 ### Generate graphs for specific target FPS with custom data
-
 The **Performance Report Tool** possess significant capabilities, but it also comes with limitations:
 - By default the tool generates graphs only against 30 and 60 fps targets. This can be limiting, especially when dealing with VR development.
 - Graphs may be challenging to interpret due to crowded data curves.
@@ -155,8 +172,8 @@ if (PlatformOS.Contains(TargetPlatformOS, ESearchCase::IgnoreCase) &&
 The code above is an example, far from perfect, but it shows where to look and what to do to allow the tool to target the custom graphs.
 After making the changes, be sure to build (NOT rebuild) the engine again to generate the needed binaries.
 
+<a name="Meta_Quest_Devices_Fixes"></a>
 ### Additional fixes for MetaQuest Devices
-
 The customized Gauntlet test is operational. <br>
 However, on Meta Quest devices, there's an issue when attempting to extend the duration of the test over a certain threshold (~10 seconds from testing), resulting in a failed test. <br>
 This has not been confirmed on other Android VR devices, but they may potentially present the same issue.
@@ -188,3 +205,5 @@ For added precaution, you can consider disabling certain device features during 
 Detailed instructions on how to do so can be found in the [following article](https://developer.oculus.com/documentation/unity/ts-scriptable-testing/?intern_source=devblog&intern_content=scale-e2e-on-device-testing-with-meta-quest-scriptable-testing) or by examining the **RunGauntletMetaDevices.bat** file located in the **Scripts** folder.
 
 Check the **PerformanceGraphResult.html** file to see the final result of the test!
+
+**[⬆ Back to Top](#table-of-contents)**
